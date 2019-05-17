@@ -1,8 +1,10 @@
 {
   "dependencies": {
+    "got": "^9.6.0",
     "import-jsx": "^2.0.0",
     "ink": "^2.1.1",
-    "react": "^16.8.6"
+    "react": "^16.8.6",
+    "winston": "^3.2.1"
   },
   "devDependencies": {
     "@babel/node": "^7.2.2",

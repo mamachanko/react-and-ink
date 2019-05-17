@@ -1,25 +1,40 @@
 import * as React from 'react';
 import {Box, Text, StdinContext} from 'ink';
+import {createLogger, format, transports} from 'winston';
+import got from 'got';
 
-export const Hackersearch = () => {
+const logger = createLogger({
+	level: 'debug',
+	format: format.combine(
+		format.colorize(),
+		format.simple()
+	),
+	transports: [
+		new transports.File({filename: 'ink.log'})
+	]
+});
+
+const getMostRecentHNStories = async query => {
+	const {body} = await got(`https://hn.algolia.com/api/v1/search_by_date?tags=story&query=${query}`);
+	const results = JSON.parse(body).hits.slice(0, 5).map(hit => hit.title);
+	logger.info(`result: ${results}`);
+	return results;
+};
+
+export const Hackersearch = ({search = getMostRecentHNStories}) => {
 	const {stdin, setRawMode} = React.useContext(StdinContext);
 	const [query, setQuery] = React.useState('');
 	const [results, setResults] = React.useState([]);
 
-	const keyListener = React.useMemo(() => (_, key) => {
+	const keyListener = React.useMemo(() => async (_, key) => {
+		logger.info(`received keypress ${JSON.stringify(key)}`);
 		if (key.name === 'return') {
 			setQuery('');
-			setResults([
-				'result 1',
-				'result 2',
-				'result 3',
-				'result 4',
-				'result 5'
-			]);
+			setResults(await search(query));
 		} else {
 			setQuery(currentQuery => `${currentQuery}${key.sequence}`);
 		}
-	}, [setQuery]);
+	}, [query, search]);
 
 	// TODO: why useLayoutEffect and not useEffect ?
 	React.useLayoutEffect(() => {
