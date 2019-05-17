@@ -1,3 +1,4 @@
+import querystring from 'querystring';
 import * as React from 'react';
 import {Box, Text, StdinContext} from 'ink';
 import {createLogger, format, transports} from 'winston';
@@ -15,7 +16,9 @@ const logger = createLogger({
 });
 
 const getMostRecentHNStories = async query => {
-	const {body} = await got(`https://hn.algolia.com/api/v1/search_by_date?tags=story&query=${query}`);
+	const url = `https://hn.algolia.com/api/v1/search_by_date?tags=story&query=${querystring.escape(query)}`;
+	logger.info(`getting ${url}`);
+	const {body} = await got(url);
 	const results = JSON.parse(body).hits.slice(0, 5).map(hit => hit.title);
 	logger.info(`result: ${results}`);
 	return results;
