@@ -27,13 +27,16 @@ const getMostRecentHNStories = async query => {
 export const Hackersearch = ({search = getMostRecentHNStories}) => {
 	const {stdin, setRawMode} = React.useContext(StdinContext);
 	const [query, setQuery] = React.useState('');
+	const [loading, setLoading] = React.useState(false);
 	const [results, setResults] = React.useState([]);
 
 	const keyListener = React.useMemo(() => async (_, key) => {
 		logger.info(`received keypress ${JSON.stringify(key)}`);
 		if (key.name === 'return') {
+			setLoading(true);
 			setQuery('');
 			setResults(await search(query));
+			setLoading(false);
 		} else {
 			setQuery(currentQuery => `${currentQuery}${key.sequence}`);
 		}
@@ -55,8 +58,9 @@ export const Hackersearch = ({search = getMostRecentHNStories}) => {
 		<Box flexDirection="column">
 			<Text>Search for the 5 latest Hackernews stories.</Text>
 			<Text>Type your query and press Enter.</Text>
-			<Text>{' '}</Text>
-			{results.map(result => <Text key={result}> - {result}</Text>)}
+			<Box marginLeft={2} marginY={1} flexDirection="column">
+				{loading ? <Text>loading ...</Text> : results.map((result, index) => <Box key={result}>{index + 1}. <Text bold>{result}</Text></Box>)}
+			</Box>
 			<Text>{`>_ ${query}█`}</Text>
 		</Box>
 	);
