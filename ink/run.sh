@@ -4,4 +4,4 @@ set -euo pipefail
 
 cd $(dirname $0)
 
-npx babel-node hackersearch.jsx
+npx babel-node .
