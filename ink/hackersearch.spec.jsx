@@ -51,7 +51,7 @@ describe('Hackersearch', () => {
 			Search for the 5 latest Hackernews stories.
 			Type your query and press Enter.
 
-			  loading ...
+			  ⠋ loading
 
 			>_ █
 		`);
@@ -90,7 +90,7 @@ describe('Hackersearch', () => {
 			Search for the 5 latest Hackernews stories.
 			Type your query and press Enter.
 
-			  loading ...
+			  ⠋ loading
 
 			>_ █
 		`);

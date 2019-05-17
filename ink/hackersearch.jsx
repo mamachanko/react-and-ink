@@ -1,4 +1,5 @@
 import querystring from 'querystring';
+import Spinner from 'ink-spinner';
 import * as React from 'react';
 import {Box, Text, StdinContext} from 'ink';
 import {createLogger, format, transports} from 'winston';
@@ -59,7 +60,11 @@ export const Hackersearch = ({search = getMostRecentHNStories}) => {
 			<Text>Search for the 5 latest Hackernews stories.</Text>
 			<Text>Type your query and press Enter.</Text>
 			<Box marginLeft={2} marginY={1} flexDirection="column">
-				{loading ? <Text>loading ...</Text> : results.map((result, index) => <Box key={result}>{index + 1}. <Text bold>{result}</Text></Box>)}
+				{
+					loading ?
+						<Box><Spinner type="dots"/> <Text>loading</Text></Box> :
+						results.map((result, index) => <Box key={result}>{index + 1}. <Text bold>{result}</Text></Box>)
+				}
 			</Box>
 			<Text>{`>_ ${query}█`}</Text>
 		</Box>
