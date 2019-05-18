@@ -13,18 +13,18 @@ describe('Hackersearch', () => {
 	it('I can query for the 5 most-recent matching stories on Hackernews', async () => {
 		const searchMock = jest.fn()
 			.mockResolvedValueOnce([
-				'result bangalore 1',
-				'result bangalore 2',
-				'result bangalore 3',
-				'result bangalore 4',
-				'result bangalore 5'
+				{title: 'result bangalore 1', id: '1'},
+				{title: 'result bangalore 2', id: '2'},
+				{title: 'result bangalore 3', id: '3'},
+				{title: 'result bangalore 4', id: '4'},
+				{title: 'result bangalore 5', id: '5'}
 			])
 			.mockResolvedValueOnce([
-				'result berlin 1',
-				'result berlin 2',
-				'result berlin 3',
-				'result berlin 4',
-				'result berlin 5'
+				{title: 'result berlin 1', id: '1'},
+				{title: 'result berlin 2', id: '2'},
+				{title: 'result berlin 3', id: '3'},
+				{title: 'result berlin 4', id: '4'},
+				{title: 'result berlin 5', id: '5'}
 			]);
 
 		const {lastFrame, stdin} = render(<Hackersearch search={searchMock}/>);

@@ -20,8 +20,8 @@ const getMostRecentHNStories = async query => {
 	const url = `https://hn.algolia.com/api/v1/search_by_date?tags=story&query=${querystring.escape(query)}`;
 	logger.info(`getting ${url}`);
 	const {body} = await got(url);
-	const results = JSON.parse(body).hits.slice(0, 5).map(hit => hit.title);
-	logger.info(`result: ${results}`);
+	const results = JSON.parse(body).hits.slice(0, 5).map(hit => ({title: hit.title, id: hit.objectID}));
+	logger.info(`result: ${JSON.stringify(results)}`);
 	return results;
 };
 
@@ -63,7 +63,7 @@ export const Hackersearch = ({search = getMostRecentHNStories}) => {
 				{
 					loading ?
 						<Box><Spinner type="dots"/> <Text>loading</Text></Box> :
-						results.map((result, index) => <Box key={result}>{index + 1}. <Text bold>{result}</Text></Box>)
+						results.map((result, index) => <Box key={result.id}>{index + 1}. <Text bold>{result.title}</Text></Box>)
 				}
 			</Box>
 			<Text>{`>_ ${query}█`}</Text>
