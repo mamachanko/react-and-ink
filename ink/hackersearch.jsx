@@ -43,9 +43,7 @@ export const Hackersearch = ({search = getMostRecentHNStories}) => {
 		}
 	}, [query, search]);
 
-	// TODO: why useLayoutEffect and not useEffect ?
 	React.useLayoutEffect(() => {
-		// TODO: why the rawMode thing?
 		setRawMode(true);
 		stdin.on('keypress', keyListener);
 
