@@ -11,26 +11,28 @@ describe('Hackersearch', () => {
 	afterEach(cleanup);
 
 	it('I can query for the 5 most-recent matching stories on Hackernews', async () => {
-		const searchMock = jest.fn()
-			.mockResolvedValueOnce([
-				{title: 'result bangalore 1', id: '1'},
-				{title: 'result bangalore 2', id: '2'},
-				{title: 'result bangalore 3', id: '3'},
-				{title: 'result bangalore 4', id: '4'},
-				{title: 'result bangalore 5', id: '5'}
-			])
-			.mockResolvedValueOnce([
-				{title: 'result berlin 1', id: '1'},
-				{title: 'result berlin 2', id: '2'},
-				{title: 'result berlin 3', id: '3'},
-				{title: 'result berlin 4', id: '4'},
-				{title: 'result berlin 5', id: '5'}
-			]);
+		const hackernewsAPIMock = {
+			searchByDate: jest.fn()
+				.mockResolvedValueOnce([
+					{title: 'result bangalore 1', id: '1'},
+					{title: 'result bangalore 2', id: '2'},
+					{title: 'result bangalore 3', id: '3'},
+					{title: 'result bangalore 4', id: '4'},
+					{title: 'result bangalore 5', id: '5'}
+				])
+				.mockResolvedValueOnce([
+					{title: 'result berlin 1', id: '1'},
+					{title: 'result berlin 2', id: '2'},
+					{title: 'result berlin 3', id: '3'},
+					{title: 'result berlin 4', id: '4'},
+					{title: 'result berlin 5', id: '5'}
+				])
+		};
 
-		const {lastFrame, stdin} = render(<Hackersearch search={searchMock}/>);
+		const {lastFrame, stdin} = render(<Hackersearch hackernewsAPI={hackernewsAPIMock}/>);
 
 		expect(lastFrame()).toEqual(dedent`
-			Search for the 5 latest Hackernews stories.
+			Search for Hackernews stories by date.
 			Type your query and press Enter.
 
 
@@ -39,7 +41,7 @@ describe('Hackersearch', () => {
 
 		stdin.write('bangalore');
 		expect(lastFrame()).toEqual(dedent`
-			Search for the 5 latest Hackernews stories.
+			Search for Hackernews stories by date.
 			Type your query and press Enter.
 
 
@@ -48,7 +50,7 @@ describe('Hackersearch', () => {
 
 		stdin.write(ENTER);
 		expect(lastFrame()).toEqual(dedent`
-			Search for the 5 latest Hackernews stories.
+			Search for Hackernews stories by date.
 			Type your query and press Enter.
 
 			  ⠋ loading
@@ -57,7 +59,7 @@ describe('Hackersearch', () => {
 		`);
 		await sleep(10);
 		expect(lastFrame()).toEqual(dedent`
-			Search for the 5 latest Hackernews stories.
+			Search for Hackernews stories by date.
 			Type your query and press Enter.
 
 			  1. ${chalk.bold('result bangalore 1')}
@@ -68,12 +70,12 @@ describe('Hackersearch', () => {
 
 			>_ █
 		`);
-		expect(searchMock).toHaveBeenNthCalledWith(1, 'bangalore');
-		expect(searchMock).toHaveBeenCalledTimes(1);
+		expect(hackernewsAPIMock.searchByDate).toHaveBeenNthCalledWith(1, 'bangalore');
+		expect(hackernewsAPIMock.searchByDate).toHaveBeenCalledTimes(1);
 
 		stdin.write('berlin');
 		expect(lastFrame()).toEqual(dedent`
-			Search for the 5 latest Hackernews stories.
+			Search for Hackernews stories by date.
 			Type your query and press Enter.
 
 			  1. ${chalk.bold('result bangalore 1')}
@@ -87,7 +89,7 @@ describe('Hackersearch', () => {
 
 		stdin.write(ENTER);
 		expect(lastFrame()).toEqual(dedent`
-			Search for the 5 latest Hackernews stories.
+			Search for Hackernews stories by date.
 			Type your query and press Enter.
 
 			  ⠋ loading
@@ -96,7 +98,7 @@ describe('Hackersearch', () => {
 		`);
 		await sleep(10);
 		expect(lastFrame()).toEqual(dedent`
-			Search for the 5 latest Hackernews stories.
+			Search for Hackernews stories by date.
 			Type your query and press Enter.
 
 			  1. ${chalk.bold('result berlin 1')}
@@ -107,7 +109,7 @@ describe('Hackersearch', () => {
 
 			>_ █
 		`);
-		expect(searchMock).toHaveBeenNthCalledWith(2, 'berlin');
-		expect(searchMock).toHaveBeenCalledTimes(2);
+		expect(hackernewsAPIMock.searchByDate).toHaveBeenNthCalledWith(2, 'berlin');
+		expect(hackernewsAPIMock.searchByDate).toHaveBeenCalledTimes(2);
 	});
 });

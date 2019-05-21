@@ -32,8 +32,8 @@
       "plugin:jest/recommended"
     ],
     "extensions": [
-      "ts",
-      "tsx"
+      "js",
+      "jsx"
     ],
     "rules": {
       "react/prop-types": "off"
