@@ -24,6 +24,7 @@ while [ true ] ; do
         --data-urlencode "query=${query}" \
         --silent \
         --location \
-    | jq --raw-output '.hits[0:5] | map(.title) | .[]'
+    | jq --raw-output '.hits[0:5] | map(.title) | .[]' \
+    | nl -b a -s '. ' -w 3
     echo
 done
