@@ -18,20 +18,57 @@ const HackernewsAPI = {
 	}
 };
 
+const initialState = {
+	query: '',
+	isLoading: false,
+	results: []
+};
+
+const reducer = (state, action) => {
+	switch (action.type) {
+		case ('KEYSTROKE_RECEIVED'): {
+			return {
+				...state,
+				query: `${state.query}${action.payload}`
+			};
+		}
+
+		case ('RESULTS_LOADING'): {
+			return {
+				...state,
+				isLoading: true,
+				results: [],
+				query: ''
+			};
+		}
+
+		case ('RESULTS_RECEIVED'): {
+			return {
+				...state,
+				isLoading: false,
+				results: action.payload
+			};
+		}
+
+		default:
+			throw new Error(`unexpected action ${action}`);
+	}
+};
+
 export const Hackersearch = ({hackernewsAPI = HackernewsAPI}) => {
 	const {stdin, setRawMode} = React.useContext(StdinContext);
-	const [query, setQuery] = React.useState('');
-	const [loading, setLoading] = React.useState(false);
-	const [results, setResults] = React.useState([]);
+	const [
+		{query, isLoading, results},
+		dispatch
+	] = React.useReducer(reducer, initialState);
 
 	const keyListener = React.useMemo(() => async (_, key) => {
 		if (key.name === 'return') {
-			setLoading(true);
-			setQuery('');
-			setResults(await hackernewsAPI.searchByDate(query));
-			setLoading(false);
+			dispatch({type: 'RESULTS_LOADING'});
+			const results = await hackernewsAPI.searchByDate(query);
+			dispatch({type: 'RESULTS_RECEIVED', payload: results});
 		} else {
-			setQuery(currentQuery => `${currentQuery}${key.sequence}`);
+			dispatch({type: 'KEYSTROKE_RECEIVED', payload: key.sequence});
 		}
 	}, [hackernewsAPI, query]);
 
@@ -50,7 +87,7 @@ export const Hackersearch = ({hackernewsAPI = HackernewsAPI}) => {
 			<Box>Search for Hackernews stories by date.</Box>
 			<Box>Type your query and press Enter.</Box>
 			<Box marginLeft={2} marginY={1} flexDirection="column">
-				{ loading ? <Loading/> : <Results results={results}/> }
+				{ isLoading ? <Loading/> : <Results results={results}/> }
 			</Box>
 			<Box>{`>_ ${query}█`}</Box>
 		</Box>
