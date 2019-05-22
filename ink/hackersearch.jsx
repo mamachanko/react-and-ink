@@ -55,8 +55,21 @@ const reducer = (state, action) => {
 	}
 };
 
-export const Hackersearch = ({hackernewsAPI = HackernewsAPI}) => {
+const useStdin = keyListener => {
 	const {stdin, setRawMode} = React.useContext(StdinContext);
+
+	React.useLayoutEffect(() => {
+		setRawMode(true);
+		stdin.on('keypress', keyListener);
+
+		return () => {
+			stdin.removeListener('keypress', keyListener);
+			setRawMode(false);
+		};
+	}, [keyListener, setRawMode, stdin]);
+};
+
+export const Hackersearch = ({hackernewsAPI = HackernewsAPI}) => {
 	const [
 		{query, isLoading, results},
 		dispatch
@@ -72,15 +85,7 @@ export const Hackersearch = ({hackernewsAPI = HackernewsAPI}) => {
 		}
 	}, [hackernewsAPI, query]);
 
-	React.useLayoutEffect(() => {
-		setRawMode(true);
-		stdin.on('keypress', keyListener);
-
-		return () => {
-			stdin.removeListener('keypress', keyListener);
-			setRawMode(false);
-		};
-	}, [keyListener, setRawMode, stdin]);
+	useStdin(keyListener);
 
 	return (
 		<Box flexDirection="column">
