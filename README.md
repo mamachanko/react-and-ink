@@ -1,9 +1,15 @@
-# Building Command-line Applications with React & Ink
+This is the code for my talk 
+> _"Building Command-line Applications with React & Ink"_
+
 ⚛️➕🖋
 
 ```bash
 ./build.sh
+
+# run the Bash version of Hackernews
 ./bash/run.sh
+
+# run the React & Ink version of Hackernews
 ./ink/run.sh
 ```
 
