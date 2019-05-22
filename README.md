@@ -1,7 +1,5 @@
 This is the code for my talk 
-> _"Building Command-line Applications with React & Ink"_
-
-⚛️➕🖋
+> _"Building Command-line Applications with React & Ink"_ ⚛️➕🖋
 
 ```bash
 ./build.sh
