@@ -6,8 +6,9 @@ import * as React from 'react';
 
 const HackernewsAPI = {
 	searchByDate: async query => {
-		const url = `https://hn.algolia.com/api/v1/search_by_date?tags=story&query=${querystring.escape(query)}`;
-		const {body} = await got(url);
+		const hackernewsAPIBaseUrl = 'https://hn.algolia.com';
+		const searchByDateUrl = `${hackernewsAPIBaseUrl}/api/v1/search_by_date?tags=story&query=${querystring.escape(query)}`;
+		const {body} = await got(searchByDateUrl);
 		return JSON.parse(body)
 			.hits
 			.slice(0, 5)

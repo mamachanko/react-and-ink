@@ -9,5 +9,6 @@ docker \
     --interactive \
     --tty \
     --volume $(pwd)/hackersearch.sh:/hackersearch.sh \
+    --network 'ink' \
     mamachanko/react-and-ink \
     bash hackersearch.sh

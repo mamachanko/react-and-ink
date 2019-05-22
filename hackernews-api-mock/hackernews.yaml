@@ -1,0 +1,13 @@
+---
+description: Hackernews API
+request: 
+  method: GET
+  path: /api/v1/search_by_date
+  queryStringParameters:
+    tags: 
+      - story
+    query:
+      - '*'
+response:
+  statusCode: 200
+  body: '{"hits": [{"title": "Poloniex Owner Circle Internet Financial Cuts 10% of Workforce", "objectID": "19981637" }, {"title": "More than half of Americans have suffered a ‘workout hangover’", "objectID": "19981061" }, {"title": "Amazon Rekognition and Webhose.io API = Cool Demo", "objectID": "19980451" }, {"title": "Huawei: ARM memo tells staff to stop working with China’s tech giant", "objectID": "19979976" }, {"title": "ARM memo tells staff to stop working with Huawei", "objectID": "19979626" }, {"title": "Clash of Clans – Short Review by My 3rd Grader", "objectID": "19977576" }, {"title": "Ask HN: Comprehensive guides for what to do in a post-climate-change world?", "objectID": "19976699"}]}'
