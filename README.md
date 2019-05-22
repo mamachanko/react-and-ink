@@ -2,6 +2,7 @@
 ⚛️➕🖋
 
 ```bash
+./build.sh
 ./bash/run.sh
 ./ink/run.sh
 ```
