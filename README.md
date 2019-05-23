@@ -12,3 +12,5 @@ This is the code for my talk
 ```
 
 [slide deck](https://docs.google.com/presentation/d/1kDKr9-EdeDMJvHVo3jUMfHKLiUEjumC2gV4Lx9C-ETs/edit?usp=sharing)
+
+Get started with this [Ink template](https://github.com/mamachanko/ink-template).
