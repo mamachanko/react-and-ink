@@ -2,6 +2,8 @@
 
 set -euxo pipefail
 
+docker network create ink
+
 docker \
     build \
     . \

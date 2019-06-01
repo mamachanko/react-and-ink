@@ -14,7 +14,7 @@ echo "Search for Hackernews stories by date."
 echo "Type your query and press <enter>."
 echo
 
-HACKERNEWS_API_BASE_URL="http://hn:8083"
+HACKERNEWS_API_BASE_URL=${1:-"https://hn.algolia.com"}
 
 while [ true ] ; do
     read -p ">_ " query

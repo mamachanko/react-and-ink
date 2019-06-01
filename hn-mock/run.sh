@@ -4,8 +4,6 @@ set -euxo pipefail
 
 cd $(dirname $0)
 
-docker network create ink
-
 docker \
     run \
     --volume $(pwd):/config \
