@@ -3250,10 +3250,10 @@ ink-testing-library@^1.0.1:
   resolved "https://registry.yarnpkg.com/ink-testing-library/-/ink-testing-library-1.0.1.tgz#6a068997e66522c88b58c5ff65181faf5b932f88"
   integrity sha512-RT/JU1NDcf3XdSWsN9kcJHEd6zX5Sb4kt5SFlfnJiKIzt2xdPdbWCrhBdEOFtdP9Nu282HU3AJ1zt7yYUpyljw==
 
-ink@^2.1.1:
-  version "2.1.1"
-  resolved "https://registry.yarnpkg.com/ink/-/ink-2.1.1.tgz#efb2adbd30be79b4f640d7c67b524bfb030205ba"
-  integrity sha512-vP1yE/uJoiY6uB9yHalczUA02I9fg7xDUbTEZitPK5y6dvnPo9a/6UWqIB2uCYkHOhEZMN+D/TsVr4v2sz8qYA==
+ink@^2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/ink/-/ink-2.2.0.tgz#8231cbaf03799634cb333ec4e461f50e25e93fc0"
+  integrity sha512-BQl7jpmLxPqFGjdQdgXQS0+mAyn1BHkEW1YXur3dahNNwLB6MWsfAZ1GWVdj+Mbpmj+u33KaFOosw3067t3d9g==
   dependencies:
     "@types/react" "^16.8.6"
     arrify "^1.0.1"
