@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "got": "^9.6.0",
+    "got": "^11.8.5",
     "import-jsx": "^2.0.0",
     "ink": "^2.2.0",
     "ink-spinner": "^3.0.1",
